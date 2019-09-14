@@ -105,6 +105,8 @@ function shift_right() {
                         board[x2][y] = 0
                         shifted = true
                         break
+                    } else if (board[x2][y] != 0 && board[x][y] != board[x2][y]) {
+                        break
                     }
                 }
             }
@@ -131,32 +133,30 @@ function shift_left() {
     var shifted = false
     for (var y = 0; y < NUM_TILES; y++) {
         for (var x = 0; x < NUM_TILES - 1; x++) {
-            if (board[x][y] == 0) {
-                continue
-            }
-            for (var x2 = x + 1; x2 < NUM_TILES; x2++) {
-                if (board[x][y] == board[x2][y]) {
-                    board[x][y] += 1
-                    score += Math.pow(2, board[x][y])
-                    board[x2][y] = 0
-                    shifted = true
-                    break
-                } else if (board[x][y] != board[x2][y]) {
-                    break
+            if (board[x][y] != 0) {
+                for (var x2 = x + 1; x2 < NUM_TILES; x2++) {
+                    if (board[x][y] == board[x2][y]) {
+                        board[x][y] += 1
+                        score += Math.pow(2, board[x][y])
+                        board[x2][y] = 0
+                        shifted = true
+                        break
+                    } else if (board[x2][y] != 0 && board[x][y] != board[x2][y]) {
+                        break
+                    }
                 }
             }
         }
 
         for (var x = 0; x < NUM_TILES - 1; x++) {
-            if (board[x][y] != 0) {
-                continue
-            }
-            for (var x2 = x + 1; x2 < NUM_TILES; x2++) {
-                if (board[x2][y] != 0) {
-                    board[x][y] = board[x2][y]
-                    board[x2][y] = 0
-                    shifted = true
-                    break
+            if (board[x][y] == 0) {
+                for (var x2 = x + 1; x2 < NUM_TILES; x2++) {
+                    if (board[x2][y] != 0) {
+                        board[x][y] = board[x2][y]
+                        board[x2][y] = 0
+                        shifted = true
+                        break
+                    }
                 }
             }
         }
@@ -168,32 +168,30 @@ function shift_down() {
     var shifted = false
     for (var x = 0; x < NUM_TILES; x++) {
         for (var y = NUM_TILES - 1; y > 0; y--) {
-            if (board[x][y] == 0) {
-                continue
-            }
-            for (var y2 = y - 1; y2 >= 0; y2--) {
-                if (board[x][y] == board[x][y2]) {
-                    board[x][y] += 1
-                    score += Math.pow(2, board[x][y])
-                    board[x][y2] = 0
-                    shifted = true
-                    break
-                } else if(board[x][y] != board[x][y2]) {
-                    break
+            if (board[x][y] != 0) {
+                for (var y2 = y - 1; y2 >= 0; y2--) {
+                    if (board[x][y] == board[x][y2]) {
+                        board[x][y] += 1
+                        score += Math.pow(2, board[x][y])
+                        board[x][y2] = 0
+                        shifted = true
+                        break
+                    } else if(board[x][y2] != 0 && board[x][y] != board[x][y2]) {
+                        break
+                    }
                 }
             }
         }
 
         for (var y = NUM_TILES - 1; y > 0; y--) {
-            if (board[x][y] != 0) {
-                continue
-            }
-            for (var y2 = y - 1; y2 >= 0; y2--) {
-                if (board[x][y2] != 0) {
-                    board[x][y] = board[x][y2]
-                    board[x][y2] = 0
-                    shifted = true
-                    break
+            if (board[x][y] == 0) {
+                for (var y2 = y - 1; y2 >= 0; y2--) {
+                    if (board[x][y2] != 0) {
+                        board[x][y] = board[x][y2]
+                        board[x][y2] = 0
+                        shifted = true
+                        break
+                    }
                 }
             }
         }
@@ -215,22 +213,21 @@ function shift_up() {
                     board[x][y2] = 0
                     shifted = true
                     break
-                } else if(board[x][y] != board[x][y2]) {
+                } else if(board[x][y2] != 0 && board[x][y] != board[x][y2]) {
                     break
                 }
             }
         }
 
         for (var y = 0; y < NUM_TILES - 1; y++) {
-            if (board[x][y] != 0) {
-                continue
-            }
-            for (var y2 = y + 1; y2 < NUM_TILES; y2++) {
-                if (board[x][y2] != 0) {
-                    board[x][y] = board[x][y2]
-                    board[x][y2] = 0
-                    shifted = true
-                    break
+            if (board[x][y] == 0) {
+                for (var y2 = y + 1; y2 < NUM_TILES; y2++) {
+                    if (board[x][y2] != 0) {
+                        board[x][y] = board[x][y2]
+                        board[x][y2] = 0
+                        shifted = true
+                        break
+                    }
                 }
             }
         }
