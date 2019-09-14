@@ -97,33 +97,29 @@ function shift_right() {
     for (var y = 0; y < NUM_TILES; y++) {
         // Two phases - First merge all like pairs of number
         for (var x = NUM_TILES - 1; x > 0; x--) {
-            if (board[x][y] == 0) {
-                continue
-            }
-            for (var x2 = x - 1; x2 >= 0; x2--) {
-                if (board[x][y] == board[x2][y]) {
-                    board[x][y] += 1
-                    score += Math.pow(2, board[x][y])
-                    board[x2][y] = 0
-                    shifted = true
-                    break
-                } else if (board[x][y] != board[x2][y]) {
-                    break
+            if (board[x][y] != 0) {
+                for (var x2 = x - 1; x2 >= 0; x2--) {
+                    if (board[x][y] == board[x2][y]) {
+                        board[x][y] += 1
+                        score += Math.pow(2, board[x][y])
+                        board[x2][y] = 0
+                        shifted = true
+                        break
+                    }
                 }
             }
         }
 
         // Then shift all numbers over to the side
         for (var x = NUM_TILES - 1; x > 0; x--) {
-            if (board[x][y] != 0) {
-                continue
-            }
-            for (var x2 = x - 1; x2 >= 0; x2--) {
-                if (board[x2][y] != 0) {
-                    board[x][y] = board[x2][y]
-                    board[x2][y] = 0
-                    shifted = true
-                    break
+            if (board[x][y] == 0) {
+                for (var x2 = x - 1; x2 >= 0; x2--) {
+                    if (board[x2][y] != 0) {
+                        board[x][y] = board[x2][y]
+                        board[x2][y] = 0
+                        shifted = true
+                        break
+                    }
                 }
             }
         }
